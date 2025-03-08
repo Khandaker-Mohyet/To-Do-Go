@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	var tasks []string;
+	var tasks []string
 	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Println("CLI Base to app task")
@@ -20,32 +20,47 @@ func main() {
 	fmt.Println("4. Deleted a Task")
 	fmt.Println("5. Exit")
 
-	fmt.Print("Enter Your choice: ")
+	
 
-	input , _ := reader.ReadString('\n')
-	input = strings.TrimSpace(input)
+	for {
 
-	choice, error:= strconv.Atoi(input)
-	if error != nil{
-		fmt.Println("invalid input, please input an number")
-	}
-	switch choice{
-	case 1 :
-		// Add a Task
-		fmt.Println("Enter Task: ")
-		task, _ := reader.ReadString('\n')
-		task = strings.TrimSpace(task)
+		fmt.Print("Enter Your choice: ")
+		input, _ := reader.ReadString('\n')
+		input = strings.TrimSpace(input)
 
-		// add this task to the task list
-		tasks = append(tasks, task)
-		fmt.Println("Task added")
-	case 2 :
-		// List a Task
-	case 3 :
-		// Mark a task as Completed
-	case 4 :
-		// Deleted a Task
-	case 5 :
-		// Exit
+		choice, error := strconv.Atoi(input)
+		if error != nil {
+			fmt.Println("invalid input, please input an number")
+		}
+		switch choice {
+		case 1:
+			// Add a Task
+			fmt.Print("Enter Task: ")
+			task, _ := reader.ReadString('\n')
+			task = strings.TrimSpace(task)
+
+			// add this task to the task list
+			tasks = append(tasks, task)
+			fmt.Println("Task added")
+		case 2:
+			// List a Task
+			if len(tasks) == 0 {
+				fmt.Println("no task is available")
+			} else{
+				fmt.Println("Your Tasks")
+				for index, task := range tasks{
+					fmt.Printf("%d - %s \n", index+1, task)
+				}
+			}
+		case 3:
+			// Mark a task as Completed
+			if len(tasks) == 0 {
+				fmt.Println("no task is available")
+			}
+		case 4:
+			// Deleted a Task
+		case 5:
+			// Exit
+		}
 	}
 }
