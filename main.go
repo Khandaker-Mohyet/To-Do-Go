@@ -20,8 +20,6 @@ func main() {
 	fmt.Println("4. Deleted a Task")
 	fmt.Println("5. Exit")
 
-	
-
 	for {
 
 		fmt.Print("Enter Your choice: ")
@@ -46,9 +44,9 @@ func main() {
 			// List a Task
 			if len(tasks) == 0 {
 				fmt.Println("no task is available")
-			} else{
+			} else {
 				fmt.Println("Your Tasks")
-				for index, task := range tasks{
+				for index, task := range tasks {
 					fmt.Printf("%d - %s \n", index+1, task)
 				}
 			}
@@ -56,6 +54,21 @@ func main() {
 			// Mark a task as Completed
 			if len(tasks) == 0 {
 				fmt.Println("no task is available")
+			}
+
+			fmt.Print("Enter task number to complete")
+
+			taskIdString, _ := reader.ReadString('\n')
+			taskIdString = strings.TrimSpace(taskIdString)
+
+			taskId, error := strconv.Atoi(taskIdString)
+
+			if error == nil && taskId > 0 && taskId <= len(tasks) {
+				// taskId = 1 => 0
+				tasks[taskId-1] = "[+] " + tasks[taskId-1]
+				fmt.Println("Task marked as completed: ")
+			} else {
+				fmt.Println("invalid input, please input an number")
 			}
 		case 4:
 			// Deleted a Task
