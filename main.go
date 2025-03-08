@@ -56,7 +56,7 @@ func main() {
 				fmt.Println("no task is available")
 			}
 
-			fmt.Print("Enter task number to complete")
+			fmt.Print("Enter task number to complete: ")
 
 			taskIdString, _ := reader.ReadString('\n')
 			taskIdString = strings.TrimSpace(taskIdString)
@@ -72,8 +72,30 @@ func main() {
 			}
 		case 4:
 			// Deleted a Task
+			if len(tasks) == 0 {
+				fmt.Println("no task is available")
+			}
+
+			fmt.Print("Enter task number to delete: ")
+
+			taskIdString, _ := reader.ReadString('\n')
+			taskIdString = strings.TrimSpace(taskIdString)
+
+			taskId, error := strconv.Atoi(taskIdString)
+
+			if error == nil && taskId > 0 && taskId <= len(tasks) {
+				// [1, 2, 3, 4, 5] //3=>2
+				tasks = append(tasks[:taskId-1], tasks[taskId:]...)
+				fmt.Println("Task deleted")
+			} else {
+				fmt.Println("invalid input, please input an number")
+			}
 		case 5:
 			// Exit
+			fmt.Println("Exiting. Goodbye")
+			os.Exit(1)
+		default:
+			fmt.Println("Invalid choice, try again")
 		}
 	}
 }
