@@ -8,25 +8,32 @@ import (
 	"strings"
 )
 
-func main() {
-
-	var tasks []string
-	reader := bufio.NewReader(os.Stdin)
-
+func displayMessage() {
 	fmt.Println("CLI Base to app task")
 	fmt.Println("1. Add a Task")
 	fmt.Println("2. List a Task")
 	fmt.Println("3. Mark a task as Completed")
 	fmt.Println("4. Deleted a Task")
 	fmt.Println("5. Exit")
+}
+
+func getChoice(reader *bufio.Reader)(int, error) {
+	input, _ := reader.ReadString('\n')
+	input = strings.TrimSpace(input)
+	return strconv.Atoi(input)
+}
+
+func main() {
+
+	var tasks []string
+	reader := bufio.NewReader(os.Stdin)
 
 	for {
+		displayMessage()
 
 		fmt.Print("Enter Your choice: ")
-		input, _ := reader.ReadString('\n')
-		input = strings.TrimSpace(input)
 
-		choice, error := strconv.Atoi(input)
+		choice, error := getChoice(reader)
 		if error != nil {
 			fmt.Println("invalid input, please input an number")
 		}
